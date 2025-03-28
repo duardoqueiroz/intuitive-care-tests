@@ -1,0 +1,20 @@
+services:
+  database:
+    container_name: intuitive_care_database
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    environment:
+      - POSTGRES_USER=intuitive_care
+      - POSTGRES_PASSWORD=12345678
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+#       - ./database/4T2023.csv:/docker-entrypoint-initdb.d/4T2023.csv
+#       - ./database/4T2024.csv:/docker-entrypoint-initdb.d/4T2024.csv
+#       - ./database/Relatorio_cadop.csv:/docker-entrypoint-initdb.d/Relatorio_cadop.csv
+#     command: [ "bash", "/docker-entrypoint-initdb.d/init.sh" ]
+volumes:
+  postgres_data:
