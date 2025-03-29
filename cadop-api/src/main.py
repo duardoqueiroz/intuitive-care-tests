@@ -27,14 +27,9 @@ def get_all_records():
 
     for key, value in query_params.items():
         if key in data.columns:
-            if key == "razao_social" or key == "nome_fantasia":
-                filtered_data = data[
-                    data[key].str.contains(value, case=False, na=False)
-                ]
-            else:
-                filtered_data = data[
-                    data[key].astype(str).str.contains(value, case=False, na=False)
-                ]
+            filtered_data = data[
+                data[key].astype(str).str.contains(value, case=False, na=False)
+            ]
     start = (page - 1) * limit
     end = page * limit
     paginated_data = filtered_data[start:end]
