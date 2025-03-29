@@ -2,47 +2,70 @@
   <div>
     <div class="search-bar">
       <label class="input-label" for="nome_fantasia">Nome Fantasia:</label>
-      <input class="input" v-model="nome_fantasia" @input="fetchRecords" placeholder="Buscar por nome fantasia..." />
+      <input
+        class="input"
+        v-model="nome_fantasia"
+        @input="fetchRecords"
+        placeholder="Buscar por nome fantasia..."
+      />
 
       <label class="input-label" for="razao_social">Razao Social:</label>
-      <input class="input" v-model="razao_social" @input="fetchRecords" placeholder="Buscar por razao social..." />
+      <input
+        class="input"
+        v-model="razao_social"
+        @input="fetchRecords"
+        placeholder="Buscar por razao social..."
+      />
 
       <label class="input-label" for="registro_ans">ANS:</label>
-      <input class="input" v-model="registro_ans" @input="fetchRecords" placeholder="Buscar por ANS..." />
+      <input
+        class="input"
+        v-model="registro_ans"
+        @input="fetchRecords"
+        placeholder="Buscar por ANS..."
+      />
 
       <label class="input-label" for="cnpj">CNPJ:</label>
       <input class="input" v-model="cnpj" @input="fetchRecords" placeholder="Buscar por CNPJ..." />
     </div>
-    
+
     <div class="records">
       <div v-for="record in records" :key="record.cnpj" class="record-card">
-        <h2>{{ record.razao_social}}</h2>
-        <p v-if="record.nome_fantasia"><strong>Nome fantasia:</strong> {{ record.nome_fantasia}}</p>
+        <h2>{{ record.razao_social }}</h2>
+        <p v-if="record.nome_fantasia">
+          <strong>Nome fantasia:</strong> {{ record.nome_fantasia }}
+        </p>
         <p><strong>Registro ANS:</strong> {{ record.registro_ans }}</p>
         <p><strong>CNPJ:</strong> {{ record.cnpj }}</p>
         <p v-if="record.modalidade"><strong>Modalidade:</strong> {{ record.modalidade }}</p>
-        <p><strong>Endereço:</strong> {{ record.logradouro }}, {{ record.numero }} - {{ record.bairro }}, {{ record.cidade }} - {{ record.uf }}</p>
+        <p>
+          <strong>Endereço:</strong> {{ record.logradouro }}, {{ record.numero }} -
+          {{ record.bairro }}, {{ record.cidade }} - {{ record.uf }}
+        </p>
         <p v-if="record.cep"><strong>CEP:</strong> {{ record.cep }}</p>
-        <p v-if="record.telefone"><strong>Telefone:</strong> ({{ record.ddd}}) {{ record.telefone }}</p>
-        <p v-if="record.fax"><strong>Fax:</strong> ({{ record.fax}}) {{ record.fax}}</p>
-        <p v-if="record.endereco_eletronico"><strong>E-mail:</strong> {{ record.endereco_eletronico }}</p>
-        <p v-if="record.representante"><strong>Representante:</strong> {{ record.representante }} - {{ record.cargo_representante }}</p>
-        <p v-if="record.regiao_de_comercializacao"><strong>Região de Comercialização:</strong> {{ record.regiao_de_comercializacao }}</p>
-        <p v-if="record.data_registro_ans"><strong>Data Registro ANS:</strong> {{ record.data_registro_ans }}</p>
+        <p v-if="record.telefone">
+          <strong>Telefone:</strong> ({{ record.ddd }}) {{ record.telefone }}
+        </p>
+        <p v-if="record.fax"><strong>Fax:</strong> ({{ record.fax }}) {{ record.fax }}</p>
+        <p v-if="record.endereco_eletronico">
+          <strong>E-mail:</strong> {{ record.endereco_eletronico }}
+        </p>
+        <p v-if="record.representante">
+          <strong>Representante:</strong> {{ record.representante }} -
+          {{ record.cargo_representante }}
+        </p>
+        <p v-if="record.regiao_de_comercializacao">
+          <strong>Região de Comercialização:</strong> {{ record.regiao_de_comercializacao }}
+        </p>
+        <p v-if="record.data_registro_ans">
+          <strong>Data Registro ANS:</strong> {{ record.data_registro_ans }}
+        </p>
       </div>
     </div>
     <div class="pagination">
-      <button 
-        @click="setPage(currentPage - 1)" 
-        :disabled="currentPage <= 1"
-      >
-        Anterior
-      </button>
+      <button @click="setPage(currentPage - 1)" :disabled="currentPage <= 1">Anterior</button>
       <span>{{ currentPage }} de {{ totalPages }}</span>
-      <button 
-        @click="setPage(currentPage + 1)" 
-        :disabled="currentPage >= totalPages"
-      >
+      <button @click="setPage(currentPage + 1)" :disabled="currentPage >= totalPages">
         Próximo
       </button>
     </div>
@@ -63,7 +86,7 @@ export default {
       currentPage: 1,
       totalPages: 1,
       totalRecords: 0,
-      perPage: 9 
+      perPage: 9,
     }
   },
   methods: {
@@ -71,33 +94,32 @@ export default {
       try {
         const params = {
           page: this.currentPage,
-          limit: this.perPage
+          limit: this.perPage,
         }
 
         if (this.nome_fantasia) params.nome_fantasia = this.nome_fantasia
-        if (this.razao_social) params.razao_social= this.razao_social
+        if (this.razao_social) params.razao_social = this.razao_social
         if (this.registro_ans) params.registro_ans = this.registro_ans
         if (this.cnpj) params.cnpj = this.cnpj
-      console.log(import.meta.env.API_URL)
+        console.log(import.meta.env.API_URL)
 
         const response = await axios.get(`${import.meta.env.VITE_API_URL}/records`, { params })
         this.records = JSON.parse(response.data.data)
         this.totalRecords = response.data.total_records
         this.totalPages = response.data.total_pages
       } catch (error) {
-        console.error("Erro ao buscar registros:", error)
+        console.error('Erro ao buscar registros:', error)
       }
     },
-      setPage(page) {
+    setPage(page) {
       if (page < 1 || page > this.totalPages) return
       this.currentPage = page
       this.fetchRecords()
-  },
-
+    },
   },
   mounted() {
     this.fetchRecords()
-  }
+  },
 }
 </script>
 
@@ -116,7 +138,7 @@ export default {
   width: 200px;
 }
 
-.input-label{
+.input-label {
   font-size: 22px;
   font-weight: 400;
 }
@@ -141,13 +163,13 @@ export default {
   color: #007bff;
 }
 
-.record-card p{
-  margin: 0 ;
+.record-card p {
+  margin: 0;
 }
 
 .pagination {
   display: flex;
-  align-items:center;
+  align-items: center;
   justify-content: center;
   gap: 1rem;
   margin-top: 1rem;

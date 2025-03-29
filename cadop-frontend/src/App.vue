@@ -10,14 +10,14 @@ import RecordList from './components/RecordList.vue'
 
 export default {
   components: {
-    RecordList
-  }
+    RecordList,
+  },
 }
 </script>
 
 <style>
 #app {
-  margin:0;
+  margin: 0;
 }
 
 .container {

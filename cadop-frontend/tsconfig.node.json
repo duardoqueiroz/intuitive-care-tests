@@ -11,7 +11,8 @@
   "compilerOptions": {
     "noEmit": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
-
+    "noImplicitAny": false,
+    "allowJs": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "types": ["node"]
