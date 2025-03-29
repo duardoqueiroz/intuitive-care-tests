@@ -26,10 +26,11 @@ def main():
 def crawl_files(config):
     try:
         config.status_logger.info("Iniciando crawler!")
-        config.headless = False
+        config.headless = True
         config.limit_await = 15
         crawler = Crawler(config)
 
+        config.status_logger.info(f"Redirecionando para {config.url}")
         crawler.redirect_to(config.url)
         file1 = crawler.get_link(
             "/html/body/div[2]/div[1]/main/div[2]/div/div/div/div/div[2]/div/ol/li[1]/a[1]"
