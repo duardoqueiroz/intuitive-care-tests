@@ -55,19 +55,19 @@ $ docker exec -it intuitive_care_database sh
 - Através do psql, acesse o shell sql do PostgreSQL
 
 ```
-psql -U intuitive_care
+$ psql -U intuitive_care
 ```
 
 - Para ver as tabelas do banco de dados:
 
 ```
-\dt
+$ \dt
 ```
 
 - Para se conectar ao banco
 
 ```
-\c intuitive_care
+$ \c intuitive_care
 ```
 
 Após realizar a conexão, as queries do arquivo queries.sql poderão ser feitas. Bastar copiar e executar;
