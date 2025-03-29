@@ -101,7 +101,6 @@ export default {
         if (this.razao_social) params.razao_social = this.razao_social
         if (this.registro_ans) params.registro_ans = this.registro_ans
         if (this.cnpj) params.cnpj = this.cnpj
-        console.log(import.meta.env.API_URL)
 
         const response = await axios.get(`${import.meta.env.VITE_API_URL}/records`, { params })
         this.records = JSON.parse(response.data.data)
